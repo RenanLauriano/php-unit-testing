@@ -28,7 +28,7 @@ class ProductService
      * Seleciona um Produto pelo ID através
      * do repositorie
      * @param int $id
-     * @return object 
+     * @return object
     */
     public function getProductById(int $id)
     {
@@ -86,7 +86,7 @@ class ProductService
     /**
      * Armazenamento da Imagem do Produto
      * @param object $image
-     * @return string 
+     * @return string
      */
     public function storeImageProduct(object $image)
     {
