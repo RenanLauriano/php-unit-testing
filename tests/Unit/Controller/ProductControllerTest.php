@@ -93,13 +93,3 @@ class ProductControllerTest extends TestCase
             ->getMock();
     }
 }
-
-
-
-class Person {
-    private $name;
-
-    public function getName(){
-        return $this->name;
-    }
-}
