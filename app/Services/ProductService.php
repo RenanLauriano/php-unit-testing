@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\ProductRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 
 class ProductService
@@ -55,14 +56,15 @@ class ProductService
      */
     public function updateProduct(int $id, array $product)
     {
-        $prod = $this->productRepository->getProductById($id);
-
-        if (!$prod) {
-            return response()->json(['message' => 'Product Not Found'], 404);
+        try {
+            $prod = $this->productRepository->getProductById($id);
+        }
+        catch(ModelNotFoundException $e) {
+            return false;
         }
 
         $this->productRepository->updateProduct($prod, $product);
-        return response()->json(['message' => 'Product Updated'], 200);
+        return true;
     }
 
     /**
@@ -73,23 +75,13 @@ class ProductService
      */
     public function destroyProduct(int $id)
     {
-        $prod = $this->productRepository->getProductById($id);
-
-        if (!$prod) {
-            return response()->json(['message' => 'Product Not Found'], 404);
+        try{
+            $prod = $this->productRepository->getProductById($id);
         }
-
+        catch(ModelNotFoundException $e){
+            return false;
+        }
         $this->productRepository->destroyProduct($prod);
-        return response()->json(['message' => 'Product Deleted'], 200);
-    }
-
-    /**
-     * Armazenamento da Imagem do Produto
-     * @param object $image
-     * @return string
-     */
-    public function storeImageProduct(object $image)
-    {
-        return $image->store("/products");
+        return true;
     }
 }

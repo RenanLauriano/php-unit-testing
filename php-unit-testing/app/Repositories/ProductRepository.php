@@ -31,7 +31,7 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function getProductById(int $id)
     {
-        return $this->entity->where('id', $id)->first();
+        return $this->entity->where('id', $id)->firstOrFail();
     }
 
     /**
